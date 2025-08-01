@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Girlfriend Day</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffebee 0%, #e3f2fd 50%, #e8f5e9 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .special-font {
+            font-family: 'Pacifico', cursive;
+        }
+        
+        .tear-drop {
+            position: absolute;
+            width: 18px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50% 0 50% 50%;
+            transform: rotate(45deg);
+            animation: fall 2.5s ease-in infinite;
+            filter: drop-shadow(0 0 2px rgba(255,255,255,0.5));
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-50px) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 50px)) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        
+        .card {
+            width: 380px;
+            height: 550px;
+            perspective: 1000px;
+            margin: 0 auto;
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+        }
+        .card:hover {
+            transform: scale(1.03);
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .card-front {
+            background: linear-gradient(135deg, #ff6b8b 0%, #ff8e9e 100%);
+            color: white;
+            border: 4px solid #ffccd5;
+            box-shadow: 0 15px 35px rgba(255, 105, 140, 0.3);
+        }
+        
+        .card-back {
+            background: linear-gradient(135deg, #74b9ff 0%, #a7d8ff 100%);
+            transform: rotateY(180deg);
+            color: white;
+            border: 4px solid #b3e0ff;
+            box-shadow: 0 15px 35px rgba(116, 185, 255, 0.3);
+        }
+        
+        .heart {
+            color: #ff4d6d;
+            animation: beat 1.5s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes beat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            40% { transform: scale(1); }
+            60% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        
+        .swipe-hint {
+            position: absolute;
+            bottom: 25px;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.7; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center p-4">
+    <!-- Audio element (autoplay) -->
+    <audio id="bgMusic" autoplay loop>
+        <source src="https://s19.aconvert.com/convert/p3r68-cdx67/bm2fc-7ykjq.mp3" type="audio/mp3">
+    </audio>
+    
+    <!-- Header with title and thank you message -->
+    <div class="text-center mb-8 relative">
+        <h1 class="special-font text-4xl md:text-5xl text-pink-600 mb-2">Happy Girlfriend Day  💕🎉</h1>
+        <div class="bg-pink-100 p-6 rounded-lg max-w-md mx-auto mb-8">
+            <h2 class="text-2xl font-bold text-pink-700 mb-4">My Dearest Cutie Bacha 💖</h2>
+            <p class="text-gray-700 mb-3">From the moment you came into my life, everything changed for the better. Your smile lights up my darkest days, your laughter is the music that fills my heart, and your love is the strength that keeps me going. 🌟</p>
+            <p class="text-gray-700 mb-3">Every day I wake up grateful for your presence in my life. The way you care, the way you understand me without words, the way you love unconditionally - these are gifts I cherish every single day. 🌈</p>
+            <p class="text-gray-700">Thank you for being you, for loving me, and for making every ordinary moment feel extraordinary. I promise to cherish and love you today, tomorrow, and forever. 💞</p>
+        </div>
+    </div>
+    
+    <!-- Tear drop animations -->
+    <div id="tearContainer" class="fixed top-0 left-0 w-full h-0 pointer-events-none">
+        <!-- Tears will be generated via JavaScript -->
+    </div>
+    
+    <!-- Photo Gallery -->
+    <div class="grid grid-cols-2 gap-4 max-w-md mx-auto mb-8">
+        <img src="https://files.catbox.moe/x1qx0n.jpg" alt="Couple moment 1" class="rounded-lg shadow-lg">
+        <img src="https://files.catbox.moe/t7nz0f.jpg" alt="Couple moment 2" class="rounded-lg shadow-lg">
+        <img src="https://files.catbox.moe/vjk152.jpg" alt="Couple moment 3" class="rounded-lg shadow-lg">
+        <img src="https://files.catbox.moe/pm8xrw.jpg" alt="Couple moment 4" class="rounded-lg shadow-lg">
+    </div>
+
+    <!-- The interactive card -->
+    <div class="card" id="messageCard" style="width: 450px; height: 650px;">
+        <div class="card-inner">
+            <!-- Front of the card -->
+            <div class="card-front">
+                <div class="text-center">
+                    <div class="heart text-8xl">❤️🔥</div>
+                    <h2 class="text-3xl font-bold mt-6">For My Cutie Bacha 👑💖</h2>
+                    <p class="mt-6 text-xl">Slide to see my special message for you 🥰👉</p>
+                </div>
+                <div class="swipe-hint">Swipe &rarr;</div>
+            </div>
+            
+            <!-- Back of the card -->
+            <div class="card-back">
+                <div class="text-center">
+                    <div class="heart text-8xl">💝🥂</div>
+                    <h2 class="text-3xl font-bold mt-6">My Precious Love 👑💕</h2>
+                    <p class="mt-6 text-xl">Every moment with you is magical ✨ You light up my world like nobody else 🌟</p>
+                    <p class="mt-8 text-lg">I'm forever yours, my Cutie Bacha ❤️🔥</p>
+                </div>
+                <div class="swipe-hint">Swipe &larr; to go back</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Love Message -->
+    <div class="mt-12 mb-16 text-center">
+        <div class="heart text-9xl mb-6">💖✨🌹</div>
+        <p class="special-font text-6xl text-pink-600 mb-6">I Love You  💝🔥</p>
+        <p class="text-3xl text-gray-700">More than words could ever express  💌🥰</p>
+        <p class="text-2xl text-pink-500 mt-6">Forever & Always Yours  💞👑</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-4 text-center text-gray-500 text-sm">
+        <p>Made with ❤️ for my Cutie Bacha</p>
+    </div>
+    
+    <script>
+        // Auto-play music with reduced volume
+        document.addEventListener('DOMContentLoaded', function() {
+            const music = document.getElementById('bgMusic');
+            music.volume = 0.3;
+            const playPromise = music.play();
+            
+            // Handle autoplay restrictions
+            if (playPromise !== undefined) {
+                playPromise.catch(e => {
+                    // Show play button if autoplay fails
+                    music.controls = true;
+                });
+            }
+        });
+        
+        // Create tear drops
+        function createTear() {
+            const tearContainer = document.getElementById('tearContainer');
+            const tear = document.createElement('div');
+            tear.className = 'tear-drop';
+            
+            // Random horizontal position
+            const leftPos = Math.random() * (window.innerWidth - 30);
+            tear.style.left = `${leftPos}px`;
+            
+            // Random size
+            const size = 10 + Math.random() * 10;
+            tear.style.width = `${size}px`;
+            tear.style.height = `${size * 1.3}px`;
+            
+            // Random delay
+            tear.style.animationDelay = `${Math.random() * 2}s`;
+            
+            tearContainer.appendChild(tear);
+            
+            // Remove tear after animation completes
+            setTimeout(() => {
+                tear.remove();
+            }, 3000);
+        }
+        
+        // Create tears periodically
+        setInterval(createTear, 300);
+        
+        // Card interaction
+        const card = document.getElementById('messageCard');
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        card.addEventListener('click', function() {
+            this.classList.toggle('flipped');
+        });
+        
+        // Touch events for mobile swipe
+        card.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, {passive: true});
+        
+        card.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, {passive: true});
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                // Swipe left
+                card.classList.add('flipped');
+            }
+            if (touchEndX > touchStartX + 50) {
+                // Swipe right
+                card.classList.remove('flipped');
+            }
+        }
+    </script>
+</body>
+</html>
